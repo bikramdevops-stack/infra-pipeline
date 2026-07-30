@@ -1,0 +1,35 @@
+trigger:
+ branches:
+   include:
+     - main
+
+pool: infra_pool
+
+stages:
+  - stage:
+    displayName: infrastage
+    jobs:
+      - job:
+        displayName: initplanapplystage
+        steps:
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'infra_connection'
+            backendAzureRmStorageAccountName: 'teststoragehellohi'
+            backendAzureRmContainerName: 'hellohihi'
+            backendAzureRmKey: 'infra.tfstate'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            environmentServiceNameAzureRM: 'infra_connection'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            environmentServiceNameAzureRM: 'infra_connection'
