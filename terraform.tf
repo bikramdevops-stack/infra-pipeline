@@ -16,4 +16,8 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg1" {
     name="hello_rg"
     location="east us"
+    tags = {
+      owner="bikram"
+    }
+
 }
