@@ -13,7 +13,7 @@ provider "azurerm" {
     features {}
 }
 
-resource "azurerm_reosurce_group" "rg1" {
+resource "azurerm_resource_group" "rg1" {
     name="hello_rg"
     location="east us"
 }
